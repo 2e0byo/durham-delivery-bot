@@ -15,7 +15,7 @@ def test_reserve_urls(data_regression):
     driver.set_page_load_timeout(1)
     username = "username"
     password = "password"
-    urls = [get_reserve_url(x, driver, username, password) for x in permalinks]
+    urls = sorted([get_reserve_url(x, driver, username, password) for x in permalinks])
     data_regression.check(urls)
 
 
