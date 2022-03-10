@@ -7,4 +7,6 @@ def get_permalinks(fn: Path) -> list[str]:
     with fn.open() as f:
         soup = BeautifulSoup(f.read())
 
-    return [x.a["href"] for x in soup.find_all(class_="permaRecordLink")]
+    permalinks = set([x.a["href"] for x in soup.find_all(class_="permaRecordLink")])
+    permalinks |= set(x["href"] for x in soup.find_all("a", id="recordnum"))
+    return permalinks
