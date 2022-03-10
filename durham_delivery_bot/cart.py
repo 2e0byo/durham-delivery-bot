@@ -38,14 +38,15 @@ def parse_records(fn: Path) -> list[dict]:
 
     tbls = soup.find_all("table", class_="bibItems")
     for tbl, record in zip(tbls, groups):
-        copies = []
+        copies = {}
         keys = [
             x.text.strip().title()
             for x in tbl.find("tr", class_="bibItemsHeader").find_all("th")
         ]
         rows = tbl.find_all("tr", class_="bibItemsEntry")
         for row in rows:
-            copies.append(dict(zip(keys, [x.text.strip() for x in row.find_all("td")])))
+            copy = dict(zip(keys, [x.text.strip() for x in row.find_all("td")]))
+            copies[copy["Location"]] = copy
         record["Copies"] = copies
 
     return groups
