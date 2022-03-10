@@ -64,14 +64,17 @@ def request_delivery(link: str, driver: Chrome, username: str, password: str):
     el.click()
 
 
-def request_all(fn: Path):
-
+def request(permalinks: list[str]):
     driver = Chrome()
-    permalinks = get_permalinks(fn)
     username, password = get_credentials()
     login(driver)
     for link in permalinks:
         request_delivery(link, driver, username, password)
+
+
+def request_all(fn: Path):
+    permalinks = get_permalinks(fn)
+    request(permalinks)
 
 
 if TESTING:
