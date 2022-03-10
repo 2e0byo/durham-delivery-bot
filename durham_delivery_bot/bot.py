@@ -18,10 +18,13 @@ except ImportError:
     TESTING = True
 
 
-def login():
-    global username, password
+def get_credentials():
     username = input("Enter username: ").strip()
     password = getpass("Enter password: ").strip()
+    return username, password
+
+
+def login():
     LOGIN_PAGE = "https://library.dur.ac.uk/"
     driver.get(LOGIN_PAGE)
     el = driver.find_element(By.ID, "username")
@@ -69,12 +72,14 @@ def request_all(fn: Path):
 
     driver = Chrome()
     permalinks = get_permalinks(fn)
+    username, password = get_credentials()
     login()
     for link in permalinks:
         request_delivery(link)
 
 
 if TESTING:
-    permalinks = get_permalinks(Path("/tmp/out2.html"))
+    permalinks = get_permalinks(Path("/tmp/books.html"))
+    username, password = get_credentials()
     login()
     link = permalinks[0]
