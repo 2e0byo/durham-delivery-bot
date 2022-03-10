@@ -45,7 +45,7 @@ delivery_method = "Collect from Bill Bryson"
 useful_weeks = 3
 
 
-def get_reserve_url(link: str, driver: Chrome) -> str:
+def get_reserve_url(link: str, driver: Chrome, username: str, password: str) -> str:
     driver.get(link)
     try:
         el = driver.find_element(By.XPATH, "//*[text()='Request Postal Loan']")
@@ -59,7 +59,7 @@ def get_reserve_url(link: str, driver: Chrome) -> str:
     return url
 
 
-def request_delivery(link: str, driver: Chrome):
+def request_delivery(link: str, driver: Chrome, username: str, password: str):
     url = get_reserve_url(link, driver)
     driver.get(url)
 
@@ -79,7 +79,7 @@ def request_all(fn: Path):
     username, password = get_credentials()
     login(driver)
     for link in permalinks:
-        request_delivery(link, driver)
+        request_delivery(link, driver, username, password)
 
 
 if TESTING:
