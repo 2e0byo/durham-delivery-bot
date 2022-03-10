@@ -171,6 +171,21 @@ optional = false
 python-versions = ">=3.5"
 
 [[package]]
+name = "devtools"
+version = "0.8.0"
+description = "Python's missing debug print command and other development tools."
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+asttokens = ">=2.0.0,<3.0.0"
+executing = ">=0.8.0,<1.0.0"
+
+[package.extras]
+pygments = ["Pygments (>=2.2.0)"]
+
+[[package]]
 name = "executing"
 version = "0.8.2"
 description = "Get the currently executing AST node of a frame, and other information"
@@ -667,7 +682,7 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "45948c074c217c9706dae8bc370198349f956cbfeefc6718f902d9e456652fe3"
+content-hash = "e9097d326437b4294b976cfdf013a95b3447673c1f2302c036efcaf9fe013c64"
 
 [metadata.files]
 appnope = [
@@ -815,6 +830,10 @@ cryptography = [
 decorator = [
     {file = "decorator-5.1.1-py3-none-any.whl", hash = "sha256:b8c3f85900b9dc423225913c5aace94729fe1fa9763b38939a95226f02d37186"},
     {file = "decorator-5.1.1.tar.gz", hash = "sha256:637996211036b6385ef91435e4fae22989472f9d571faba8927ba8253acbc330"},
+]
+devtools = [
+    {file = "devtools-0.8.0-py3-none-any.whl", hash = "sha256:00717ef184223cf36c65bbd17c6eb412f8a7564f47957f9e8b2b7610661b17fb"},
+    {file = "devtools-0.8.0.tar.gz", hash = "sha256:6162a2f61c70242479dff3163e7837e6a9bf32451661af1347bfa3115602af16"},
 ]
 executing = [
     {file = "executing-0.8.2-py2.py3-none-any.whl", hash = "sha256:32fc6077b103bd19e6494a72682d66d5763cf20a106d5aa7c5ccbea4e47b0df7"},
