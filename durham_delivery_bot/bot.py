@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from getpass import getpass
 from pathlib import Path
 from re import sub
-from urllib.parse import unquote
+from urllib.parse import unquote, urlparse, parse_qs
 
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver import Chrome
@@ -59,7 +59,7 @@ def get_reserve_url(link: str, driver: Chrome, username: str, password: str) -> 
 
     onclick = el.get_attribute("onclick")
     url = unquote(sub(r".+resurl=(.+)'.+", r"\1", onclick))
-    bib = url.split("bib=")[1]
+    bib = parse_qs(urlparse(url).query)["bib"][0]
     url = f"https://{username}:{password}@community.dur.ac.uk/library.systems/password/request/?bib={bib}"
     return url
 
