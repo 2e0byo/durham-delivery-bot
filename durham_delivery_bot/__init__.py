@@ -34,3 +34,14 @@ def categorise(records: list[dict], in_person: list[str]) -> tuple[dict, dict]:
         else:
             reserve.append(record)
     return collect, reserve
+
+
+def process(fn: Path, in_person: list[str] = None):
+    records = parse_records(fn)
+    collect, reserve = categorise(records, in_person)
+
+    if collect:
+        formatted = records(collect)
+        print(formatted)
+    if reserve:
+        request([x["permalink"] for x in reserve])
