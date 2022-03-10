@@ -11,8 +11,6 @@ def test_get_permalinks(data_regression):
 
 def test_reserve_urls(data_regression):
     permalinks = get_permalinks(Path(__file__).parent / "books.html")
-    driver = Chrome()
-    driver.set_page_load_timeout(1)
     username = "username"
     password = "password"
     urls = sorted([get_reserve_url(x, driver, username, password) for x in permalinks])
