@@ -4,7 +4,7 @@ from pathlib import Path
 from re import sub
 from urllib.parse import unquote
 
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver import Chrome
 from selenium.webdriver.common.by import By
 
@@ -46,7 +46,12 @@ useful_weeks = 3
 
 
 def get_reserve_url(link: str, driver: Chrome, username: str, password: str) -> str:
-    driver.get(link)
+    try:
+        driver.get(link)
+    except TimeoutException:
+        # sometimes the page is broken, but the main content loads fine
+        pass
+
     try:
         el = driver.find_element(By.XPATH, "//*[text()='Request Postal Loan']")
     except NoSuchElementException:
