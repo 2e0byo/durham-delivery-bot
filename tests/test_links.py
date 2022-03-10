@@ -3,7 +3,7 @@ import pytest
 
 from durham_delivery_bot.bot import get_reserve_url, Chrome
 from durham_delivery_bot.cart import get_permalinks, parse_records
-from durham_delivery_bot import categorise
+from durham_delivery_bot import format_records, categorise
 
 
 def test_get_permalinks(data_regression):
@@ -34,3 +34,10 @@ def test_categorise(in_person, data_regression):
     records = parse_records(Path(__file__).parent / "books.html")
     collect, reserve = categorise(records, in_person)
     data_regression.check((collect, reserve))
+
+
+def test_format_records(data_regression):
+    records = parse_records(Path(__file__).parent / "books.html")
+    collect, reserve = categorise(records, ["John's", "Bryson"])
+    data_regression.check(format_records(collect))
+    print(format_records(collect))
