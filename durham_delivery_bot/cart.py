@@ -14,7 +14,7 @@ def get_permalinks(fn: Path) -> list[str]:
 
 def parse_records(fn: Path) -> list[dict]:
     with fn.open() as f:
-        soup = BeautifulSoup(f.read())
+        soup = BeautifulSoup(f.read(), features="html.parser")
 
     # can't use the div because it's broken! first entry commented out in source...
     trs = soup.find_all("tr", class_="bibInfoEntry")
