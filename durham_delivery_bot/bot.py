@@ -21,7 +21,7 @@ except ImportError:
 def login():
     global username, password
     username = input("Enter username: ").strip()
-    password = getpass("Entery password: ").strip()
+    password = getpass("Enter password: ").strip()
     LOGIN_PAGE = "https://library.dur.ac.uk/"
     driver.get(LOGIN_PAGE)
     el = driver.find_element(By.ID, "username")
