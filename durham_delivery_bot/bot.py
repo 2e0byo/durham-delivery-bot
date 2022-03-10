@@ -24,7 +24,7 @@ def get_credentials():
     return username, password
 
 
-def login():
+def login(driver: Chrome):
     LOGIN_PAGE = "https://library.dur.ac.uk/"
     driver.get(LOGIN_PAGE)
     el = driver.find_element(By.ID, "username")
@@ -45,7 +45,7 @@ delivery_method = "Collect from Bill Bryson"
 useful_weeks = 3
 
 
-def request_delivery(link: str):
+def request_delivery(link: str, driver: Chrome):
     driver.get(link)
     try:
         el = driver.find_element(By.XPATH, "//*[text()='Request Postal Loan']")
@@ -68,18 +68,18 @@ def request_delivery(link: str):
 
 
 def request_all(fn: Path):
-    global driver
 
     driver = Chrome()
     permalinks = get_permalinks(fn)
     username, password = get_credentials()
-    login()
+    login(driver)
     for link in permalinks:
-        request_delivery(link)
+        request_delivery(link, driver)
 
 
 if TESTING:
     permalinks = get_permalinks(Path("/tmp/books.html"))
     username, password = get_credentials()
-    login()
+    driver = Chrome()
+    login(driver)
     link = permalinks[0]
