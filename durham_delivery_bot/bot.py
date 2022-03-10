@@ -45,7 +45,7 @@ delivery_method = "Collect from Bill Bryson"
 useful_weeks = 3
 
 
-def request_delivery(link: str, driver: Chrome):
+def get_reserve_url(link: str, driver: Chrome) -> str:
     driver.get(link)
     try:
         el = driver.find_element(By.XPATH, "//*[text()='Request Postal Loan']")
@@ -56,6 +56,11 @@ def request_delivery(link: str, driver: Chrome):
     url = unquote(sub(r".+resurl=(.+)'.+", r"\1", onclick))
     bib = url.split("bib=")[1]
     url = f"https://{username}:{password}@community.dur.ac.uk/library.systems/password/request/?bib={bib}"
+    return url
+
+
+def request_delivery(link: str, driver: Chrome):
+    url = get_reserve_url(link, driver)
     driver.get(url)
 
     driver.find_element(By.NAME, "userStatus").send_keys(student_type)
