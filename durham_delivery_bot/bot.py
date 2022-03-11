@@ -10,6 +10,9 @@ from selenium.webdriver.common.by import By
 
 from .log import logger
 
+ATTEMPTS = 3
+
+
 def get_credentials():
     username = input("Enter username: ").strip()
     password = getpass("Enter password: ").strip()
