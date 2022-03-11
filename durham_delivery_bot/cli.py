@@ -18,6 +18,7 @@ def cli():
 @click.option("--reason", default="For my dissertation")
 @click.option("--delivery-method", default="Collect from Bill Bryson")
 @click.option("-o", "--out", type=Path, help="Path to save books to collect in")
+@click.option("--dry-run/-no-dry-run", default=False)
 def requests(
     fn: str,
     in_person: Optional[tuple[str]],
@@ -25,6 +26,7 @@ def requests(
     reason: str,
     delivery_method: str,
     out: Optional[Path],
+    dry_run: bool,
 ):
     process(
         Path(fn).expanduser().resolve(),
@@ -33,4 +35,5 @@ def requests(
         reason,
         delivery_method,
         out,
+        dry_run,
     )

@@ -43,6 +43,7 @@ def process(
     reason: str,
     delivery_method: str,
     out: Optional[Path],
+    dry_run: bool = False,
 ):
     records = parse_records(fn)
     collect, reserve = categorise(records, in_person)
@@ -55,5 +56,9 @@ def process(
             with out.open("w") as f:
                 f.write(formatted)
     if reserve:
-        logger.info("Reserving books to reserve")
-        request(reserve)
+        if dry_run:
+            logger.info("The following records would be reserved:")
+            print(format_records(reserve))
+        else:
+            logger.info("Reserving books to reserve")
+            request(reserve)
