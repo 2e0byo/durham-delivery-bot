@@ -6,12 +6,7 @@ import click
 from . import process
 
 
-@click.group()
-def cli():
-    pass
-
-
-@cli.command()
+@click.command()
 @click.argument("fn")
 @click.option("--in-person", multiple=True, help="Library to collect from in person")
 @click.option("--student-type", default="Postgraduate research")
@@ -19,7 +14,7 @@ def cli():
 @click.option("--delivery-method", default="Collect from Bill Bryson")
 @click.option("-o", "--out", type=Path, help="Path to save books to collect in")
 @click.option("--dry-run/-no-dry-run", default=False)
-def requests(
+def cli(
     fn: str,
     in_person: Optional[tuple[str]],
     student_type: str,

@@ -30,8 +30,8 @@ same thing.
 - Browse the catalogue and add books to the cart
 - Go to the book cart, select "Screen" as the export target on top, and press submit.
 - Save the resulting html page somewhere.
-- run `durham-delivery-bot requests /path/to/saved/page.html`
-- see `durham-delivery-bot requests --help** for more details.
+- run `durham-delivery-bot /path/to/saved/page.html`
+- see `durham-delivery-bot --help` for more details.
 
 **Warning:** the bot will attempt to request delivery from every library not
 explicitly set as a source for collection in person.  This may or may not work;
