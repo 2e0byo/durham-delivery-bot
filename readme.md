@@ -9,6 +9,9 @@ manually, log in (again, this time http basic auth), fill in a form, and press s
 
 In this repo you will find a bot which automates this process.
 
+It also prints a nicely formatted list of books to collect from each library,
+sorted by shelfmark.
+
 ## Installation
 
 Clone/download this repo, and then run:
@@ -19,7 +22,8 @@ poetry shell
 ```
 
 if you want to install system-wide, use `poetry build` and then use pip to
-install the wheel inside `dist`
+install the wheel inside `dist`.  Or run `make install`, which does exactly the
+same thing.
 
 ## Usage
 
@@ -27,6 +31,12 @@ install the wheel inside `dist`
 - Go to the book cart, select "Screen" as the export target on top, and press submit.
 - Save the resulting html page somewhere.
 - run `durham-delivery-bot requests /path/to/saved/page.html`
+- see `durham-delivery-bot requests --help** for more details.
+
+**Warning:** the bot will attempt to request delivery from every library not
+explicitly set as a source for collection in person.  This may or may not work;
+you are advised to check.  You can use the `--dry-run` option to check what it
+would try to reserve.
 
 
 ## Saving the current page with qutebrowser
@@ -40,15 +50,13 @@ and paste into a file.
 ## Explanation
 
 The exported page is scraped with beautifulsoup to extract the record
-permalinks.  The browser logs in, and then visits the links one by one.  Since
-the website relies on inline javascript to open each link in a new tab (sic!)
-which is tedious, we extract the link target.  We then take only the record from
-that url target, construct a *new* url injecting credentials in the url (BAD
+permalinks.  From this permalink we get the bib id; from that we build the
+reserve/request delivery link.  We inject credentials in this url since Durham
+currently uses plain authentication (over ssl) for the form
+(BAD
 BAD! but chromedriver uses a new profile each time...), and then fill in the form.
 
-## FAQ
+Note that at present the output provided by durham is broken in quite a lot of
+ways, including commenting out the div for the first entry in the bib list. We
+work around that.
 
-- **Isn't one of the steps above redundant?  You already have the bib number!**
-  Yeah, I just thought of that too.  That's what rapid development is about,
-  right?  I don't want to reserve any more books, though, so I can't test it...
-  Can you tell I wrote this in a hurry?
