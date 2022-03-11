@@ -13,7 +13,7 @@ def cli():
 
 @cli.command()
 @click.argument("fn")
-@click.option("--in-person", multiple=True)
+@click.option("--in-person", multiple=True, help="Library to collect from in person")
 @click.option("--student-type", default="Postgraduate research")
 @click.option("--reason", default="For my dissertation")
 @click.option("--delivery-method", default="Collect from Bill Bryson")
