@@ -50,7 +50,7 @@ def request_delivery(
     delivery_method: str = "Collect from Bill Bryson",
     useful_weeks: int = 3,
 ):
-    url = get_reserve_url(link)
+    url = get_reserve_url(link, username, password)
     driver.get(url)
 
     driver.find_element(By.NAME, "userStatus").send_keys(student_type)
