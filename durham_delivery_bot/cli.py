@@ -2,7 +2,7 @@ from pathlib import Path
 
 import click
 
-from .bot import request_all
+from . import process
 
 
 @click.group()
@@ -12,5 +12,6 @@ def cli():
 
 @cli.command()
 @click.argument("fn")
-def requests(fn: str):
-    request_all(Path(fn).expanduser().resolve())
+@click.option("--in-person", multiple=True)
+def requests(fn: str, in_person: tuple[str] = None):
+    process(Path(fn).expanduser().resolve(), in_person)

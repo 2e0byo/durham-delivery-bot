@@ -8,15 +8,6 @@ from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver import Chrome
 from selenium.webdriver.common.by import By
 
-try:
-    from .cart import get_permalinks
-
-    TESTING = False
-except ImportError:
-    from cart import get_permalinks
-
-    TESTING = True
-
 
 def get_credentials():
     username = input("Enter username: ").strip()
@@ -70,16 +61,3 @@ def request(permalinks: list[str]):
     login(driver)
     for link in permalinks:
         request_delivery(link, driver, username, password)
-
-
-def request_all(fn: Path):
-    permalinks = get_permalinks(fn)
-    request(permalinks)
-
-
-if TESTING:
-    permalinks = get_permalinks(Path("/tmp/books.html"))
-    username, password = get_credentials()
-    driver = Chrome()
-    login(driver)
-    link = permalinks[0]

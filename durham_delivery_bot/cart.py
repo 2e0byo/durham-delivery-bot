@@ -3,15 +3,6 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 
 
-def get_permalinks(fn: Path) -> list[str]:
-    with fn.open() as f:
-        soup = BeautifulSoup(f.read())
-
-    permalinks = set([x.a["href"] for x in soup.find_all(class_="permaRecordLink")])
-    permalinks |= set(x["href"] for x in soup.find_all("a", id="recordnum"))
-    return permalinks
-
-
 def parse_records(fn: Path) -> list[dict]:
     with fn.open() as f:
         soup = BeautifulSoup(f.read(), features="html.parser")
