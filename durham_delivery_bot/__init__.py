@@ -1,5 +1,7 @@
-from pathlib import Path
 from itertools import chain
+from pathlib import Path
+from typing import Optional
+
 
 from .bot import request
 from .cart import parse_records
