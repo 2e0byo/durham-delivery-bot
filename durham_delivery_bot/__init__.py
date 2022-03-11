@@ -14,7 +14,7 @@ def format_records(records: list[dict]) -> str:
         out += f"# {library}\n\n"
         holdings = [r for r in records if library in r["Copies"].keys()]
         for record in sorted(holdings, key=lambda x: x["Copies"][library]["Shelfmark"]):
-            out += "{} {:>40.40} {:>20.20}\n".format(
+            out += "{} {:>40.40} | {:>15.15}\n".format(
                 record["Copies"][library]["Shelfmark"],
                 record["Title"],
                 record.get("Author", record.get("Other Author", "")),
