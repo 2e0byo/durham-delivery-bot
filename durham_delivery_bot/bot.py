@@ -65,8 +65,8 @@ def request(
     delivery_method: str = "Collect from Bill Bryson",
     useful_weeks: int = 3,
 ):
-    driver = Chrome()
     username, password = get_credentials()
+    driver = Chrome()
     login(driver, username, password)
     for link in permalinks:
         request_delivery(link, driver, username, password)
