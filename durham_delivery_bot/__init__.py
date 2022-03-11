@@ -2,9 +2,9 @@ from itertools import chain
 from pathlib import Path
 from typing import Optional
 
-
 from .bot import request
 from .cart import parse_records
+from .log import logger
 
 
 def format_records(records: list[dict]) -> str:
@@ -47,9 +47,9 @@ def process(
     collect, reserve = categorise(records, in_person)
 
     if collect:
+        logger.info("Books to collect:")
         formatted = format_records(collect)
         print(formatted)
     if reserve:
-        print("Request")
-        print(format_records(reserve))
-        # request([x["permalink"] for x in reserve])
+        logger.info("Reserving books to reserve")
+        request([x["permalink"] for x in reserve])

@@ -8,6 +8,7 @@ from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver import Chrome
 from selenium.webdriver.common.by import By
 
+from .log import logger
 
 def get_credentials():
     username = input("Enter username: ").strip()
