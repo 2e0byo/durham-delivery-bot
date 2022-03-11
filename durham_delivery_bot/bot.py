@@ -60,7 +60,7 @@ def request_delivery(
 
 
 def request(
-    permalinks: list[str],
+    records: list[dict],
     student_type: str = "Postgraduate research",
     reason: str = "For my dissertation",
     delivery_method: str = "Collect from Bill Bryson",
@@ -69,5 +69,13 @@ def request(
     username, password = get_credentials()
     driver = Chrome()
     login(driver, username, password)
-    for link in permalinks:
-        request_delivery(link, driver, username, password)
+    for record in records:
+        logger.info(f"Reserving {record['Title']}")
+        for i in range(ATTEMPTS):
+            try:
+                request_delivery(record["permalink"], driver, username, password)
+                break
+            except Exception as e:
+                logger.error(f"Failed to reserve: {e}")
+            if i == ATTEMPTS:
+                raise e

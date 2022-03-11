@@ -52,4 +52,4 @@ def process(
         print(formatted)
     if reserve:
         logger.info("Reserving books to reserve")
-        request([x["permalink"] for x in reserve])
+        request(reserve)
