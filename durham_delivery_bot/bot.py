@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from getpass import getpass
 from pathlib import Path
 from re import sub
-from urllib.parse import unquote, urlparse, parse_qs
+from urllib.parse import parse_qs, unquote, urlparse
 
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver import Chrome
