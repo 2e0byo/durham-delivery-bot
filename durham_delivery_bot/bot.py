@@ -15,7 +15,7 @@ def get_credentials():
     return username, password
 
 
-def login(driver: Chrome):
+def login(driver: Chrome, username: str, password: str):
     LOGIN_PAGE = "https://library.dur.ac.uk/"
     driver.get(LOGIN_PAGE)
     el = driver.find_element(By.ID, "username")
@@ -61,6 +61,6 @@ def request_delivery(
 def request(permalinks: list[str]):
     driver = Chrome()
     username, password = get_credentials()
-    login(driver)
+    login(driver, username, password)
     for link in permalinks:
         request_delivery(link, driver, username, password)
