@@ -30,19 +30,22 @@ def login(driver: Chrome):
     ][0].click()
 
 
-student_type = "Postgraduate research"
-reason = "For my dissertation"
-delivery_method = "Collect from Bill Bryson"
-useful_weeks = 3
-
-
 def get_reserve_url(link: str, username: str, password: str) -> str:
     bib = link.split("record=")[1].replace("~S1", "a")
     url = f"https://{username}:{password}@community.dur.ac.uk/library.systems/password/request/?bib={bib}"
     return url
 
 
-def request_delivery(link: str, driver: Chrome, username: str, password: str):
+def request_delivery(
+    link: str,
+    driver: Chrome,
+    username: str,
+    password: str,
+    student_type: str = "Postgraduate research",
+    reason: str = "For my dissertation",
+    delivery_method: str = "Collect from Bill Bryson",
+    useful_weeks: int = 3,
+):
     url = get_reserve_url(link)
     driver.get(url)
 
