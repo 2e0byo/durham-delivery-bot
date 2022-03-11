@@ -1,9 +1,10 @@
 from pathlib import Path
 import pytest
 
-from durham_delivery_bot.bot import get_reserve_url, Chrome
+from durham_delivery_bot.bot import get_reserve_url, Chrome, request
 from durham_delivery_bot.cart import parse_records
 from durham_delivery_bot import format_records, categorise
+from durham_delivery_bot import bot
 
 
 def test_reserve_urls(data_regression):
@@ -39,3 +40,26 @@ def test_format_records(data_regression):
     collect, reserve = categorise(records, ["John's", "Bryson"])
     data_regression.check(format_records(collect))
     print(format_records(collect))
+
+
+def test_request(mocker):
+    records = parse_records(Path(__file__).parent / "books.html")
+    collect, reserve = categorise(records, ["John's", "Bryson"])
+    links = []
+
+    def side_effect(link, *args):
+        links.append(link)
+
+    request_delivery = mocker.patch(
+        "durham_delivery_bot.bot.request_delivery", side_effect=side_effect
+    )
+    credentials = mocker.patch("durham_delivery_bot.bot.get_credentials")
+    credentials.return_value = ("username", "password")
+    login = mocker.patch("durham_delivery_bot.bot.login")
+    request(x["permalink"] for x in reserve)
+
+    assert login.call_args_list[0][0][1:] == ("username", "password")
+    login.assert_called_once()
+
+    assert request_delivery.call_count == len(reserve)
+    assert links == [x["permalink"] for x in reserve]
