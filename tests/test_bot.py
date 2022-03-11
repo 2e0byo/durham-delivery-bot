@@ -55,10 +55,6 @@ def test_request(mocker):
     )
     credentials = mocker.patch("durham_delivery_bot.bot.get_credentials")
     credentials.return_value = ("username", "password")
-    login = mocker.patch("durham_delivery_bot.bot.login")
-
-    assert login.call_args_list[0][0][1:] == ("username", "password")
-    login.assert_called_once()
     request(reserve)
 
     assert request_delivery.call_count == len(reserve)

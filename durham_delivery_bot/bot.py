@@ -68,7 +68,6 @@ def request(
 ):
     username, password = get_credentials()
     driver = Chrome()
-    login(driver, username, password)
     for record in records:
         logger.info(f"Reserving {record['Title']}")
         for i in range(ATTEMPTS):
