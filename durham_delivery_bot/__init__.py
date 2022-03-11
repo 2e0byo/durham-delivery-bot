@@ -42,6 +42,7 @@ def process(
     student_type: str,
     reason: str,
     delivery_method: str,
+    out: Optional[Path],
 ):
     records = parse_records(fn)
     collect, reserve = categorise(records, in_person)
@@ -50,6 +51,9 @@ def process(
         logger.info("Books to collect:")
         formatted = format_records(collect)
         print(formatted)
+        if out:
+            with out.open("w") as f:
+                f.write(formatted)
     if reserve:
         logger.info("Reserving books to reserve")
         request(reserve)
