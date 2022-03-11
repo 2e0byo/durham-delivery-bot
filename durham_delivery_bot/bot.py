@@ -58,7 +58,13 @@ def request_delivery(
     el.click()
 
 
-def request(permalinks: list[str]):
+def request(
+    permalinks: list[str],
+    student_type: str = "Postgraduate research",
+    reason: str = "For my dissertation",
+    delivery_method: str = "Collect from Bill Bryson",
+    useful_weeks: int = 3,
+):
     driver = Chrome()
     username, password = get_credentials()
     login(driver, username, password)
